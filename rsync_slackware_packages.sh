@@ -1,4 +1,7 @@
+#!/bin/sh
 
+MIRROR=${MIRROR:-ftp.slackware.com}
+VERSION=${VERSION:-current}
 MAXSIZE=${MAXSIZE:-500k}
 BWLIM=${BWLIM:-100k}
 
@@ -29,13 +32,13 @@ remove /var/lock/slackpkg.* files and run slackpkg again.\n"
 
 echo "Bandwith = $BWLIM and Maximun filesize = $MAXSIZE"
 
-RSYNCSLACKWARE ftp.slackware.pl::slackware/slackware64-current/slackware64/ /var/cache/packages/slackware64
-RSYNCSLACKWARE ftp.slackware.pl::slackware/slackware64-current/patches/ /var/cache/packages/patches
-RSYNCSLACKWARE ftp.slackware.pl::slackware/slackware64-current/testing/ /var/cache/packages/testing
-RSYNCSLACKWARE ftp.slackware.pl::slackware/slackware64-current/extra/ /var/cache/packages/extra
+RSYNCSLACKWARE $MIRROR::slackware/slackware64-$VERSION/slackware64/ /var/cache/packages/slackware64
+RSYNCSLACKWARE $MIRROR::slackware/slackware64-$VERSION/patches/ /var/cache/packages/patches
+RSYNCSLACKWARE $MIRROR::slackware/slackware64-$VERSION/testing/ /var/cache/packages/testing
+RSYNCSLACKWARE $MIRROR::slackware/slackware64-$VERSION/extra/ /var/cache/packages/extra
 
-RSYNCSLACKWARE rsync://bear.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/ /var/cache/packages/SLACKPKGPLUS_alienbob
-RSYNCSLACKWARE rsync://bear.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/ /var/cache/packages/SLACKPKGPLUS_restricted
-RSYNCSLACKWARE rsync://bear.alienbase.nl/mirrors/alien-kde//current/latest/x86_64/ /var/cache/packages/SLACKPKGPLUS_ktown
+RSYNCSLACKWARE rsync://bear.alienbase.nl/mirrors/people/alien/sbrepos/$VERSION/x86_64/ /var/cache/packages/SLACKPKGPLUS_alienbob
+RSYNCSLACKWARE rsync://bear.alienbase.nl/mirrors/people/alien/restricted_sbrepos/$VERSION/x86_64/ /var/cache/packages/SLACKPKGPLUS_restricted
+RSYNCSLACKWARE rsync://bear.alienbase.nl/mirrors/alien-kde/$VERSION/latest/x86_64/ /var/cache/packages/SLACKPKGPLUS_ktown
 
 rmlockNexit
